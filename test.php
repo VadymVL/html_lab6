@@ -1,5 +1,7 @@
 <?php
-
+echo ((isset($_POST["name"]))?$_POST["name"]:"");
+echo("<br>");
+echo ((isset($_POST["password"]))?$_POST["password"]:"");
 ?>
 
 <!DOCTYPE html>
@@ -16,21 +18,24 @@
 
 <body>
 	<center>
-		<div>
+		<div class="parent">
+		<div class="child">
+			<font id="errorLog" style="background:yellow; color:red;"></font>
+			<br>
 			<fieldset>
 			<legend>Legend</legend>
-				<form name="mainform" id="mainform" action="test.php" onSubmit="check();">
-					<input type="text" name="name" id="name"></input>
+				<form method="POST" name="mainform" id="mainform" action="#">
+					<input type="text" name="name" id="name" placeholder="Your name"></input>
 					<br>
-					<input type="password" name="password" id="password"></input>
+					<input type="password" name="password" id="password" placeholder="password" ></input>
 					<br>
 					<input type="reset"></input>
 					<br>
-					<input type="submit" onClick="check();"></input>
+					<input type="button" onClick="check();" value="Submit"></input>
 					<br>
-					<input type="button" onClick="check(this);"></input>
 				</form>
 			</fieldset>
+		</div>
 		</div>
 	</center>
 </body>

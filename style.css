@@ -2,3 +2,30 @@ body {
 	background:#333333;
 	color:lime;
 }
+
+fieldset {
+	display:inline;
+	border-radius:1em;
+}
+
+.parent {
+	position: absolute;
+	top: 50%;
+	margin-top: -100px;/* half of #content height*/
+	left: 0;
+	width: 100%;
+}
+
+.child {
+  margin-left: auto;
+  margin-right: auto;
+  text-align:center;
+}
+
+.error {
+	border:2px solid red;
+}
+
+.ok {
+	border:2px solid green;
+}
