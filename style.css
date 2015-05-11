@@ -34,6 +34,11 @@ legend {
 	border:2px solid green;
 }
 
+#errorLog {
+	background:#FFFF99; 
+	color:red;
+}
+
 .required {
 	color:red;
 	float:right;

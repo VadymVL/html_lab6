@@ -27,11 +27,11 @@ echo("<br>");
 	<link rel="stylesheet" href="style.css"></link>
 </head>
 
-<body>
+<body onLoad="checkJS()">
 	<center>
 		<div class="parent">
 		<div class="child">
-			<font id="errorLog" style="background:#FFFF99; color:red;"></font>
+			<font id="errorLog"></font>
 			<br>
 			<fieldset>
 			<legend>Register</legend>
@@ -39,7 +39,7 @@ echo("<br>");
 					<font><span style="color:red;">*</span> - required fields</font>
 					<br>
 					<div align="left">First name:<span><span class="required">*</span></div>
-					<input type="text" name="first_name" id="first_name" placeholder="John"></input>
+					<input type="text" name="first_name" id="first_name" placeholder="John" value="<?php echo htmlspecialchars($_POST["first_name"]);?>"></input>
 					<br>
 					<div align="left">Last name:<span><span class="required">*</span></div>
 					<input type="text" name="last_name" id="last_name" placeholder="Doe"></input>
@@ -52,10 +52,9 @@ echo("<br>");
 					<br>
 					<div align="left">Gender:<span class="required">*</span></div>
 					<div id="gender_group_border">
-					<input type="radio" name="gender" value="M">Male</input>
-					<input type="radio" name="gender" value="F">Female</input>
+					<input type="radio" name="gender" id="gender_male" value="M"><label for="gender_male">Male</label></input>
+					<input type="radio" name="gender" id="gender_female"value="F"><label for="gender_female">Female</label></input>
 					</div>
-					<br>
 					<div align="left">Language:<span><span class="required">*</span></div>
 					<select name="lang">
 						<option value="null" disabled selected>Select...</option>
@@ -66,11 +65,12 @@ echo("<br>");
 					</select>
 					<p>
 					<div id="checkbox_terms_border">
-					<input type="checkbox" name="checkbox" id="checkbox">I'm agree with terms.</input><span class="required">*</span>
+					<input type="checkbox" name="checkbox" id="checkbox"><label for="checkbox">I'm agree with terms.</label></input><span class="required">*</span>
 					</div>
 					<p>
 					<input type="reset" value="Reset"></input>
-					<input type="button" onClick="check();" value="Submit"></input>
+					<input type="button" name="submit_button" id="submit_button" onClick="check();" value="Submit" style="display:none";></input>
+					<noscript><input type="submit" value="Submit"></input></noscript>
 					<br>
 				</form>
 			</fieldset>
