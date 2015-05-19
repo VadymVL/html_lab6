@@ -3,7 +3,7 @@ echo '<pre>'; var_dump($_POST); echo '</pre>';
 
 $first_name = $last_name = $email = $password = $language = $checkbox = $gender = "";
 $first_name_Error = $last_name_Error = $email_Error = $password_Error = $language_Error = $checkbox_Error = $gender_Error = ""; //error flags
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"]) ) { //check request method, and if submit button variable is able in the responce array
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //check request method, and if submit_form variable is able in the responce array
 	//checkForEmpty();
 	//validate();
 	echo "POST not null<br>";
@@ -24,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"]) ) { //
 } else {
 	echo "POST is null<br>";
 	if($_SERVER["REQUEST_METHOD"] == "POST") { echo "POST <br>"; } else { echo "NO POST <br>"; }
-	if(isset($_POST["submit_button"]) ) { echo "submit_button <br>"; } else { echo "NO submit_button <br>"; }
+	if(isset($_POST["submit_form"]) ) { echo "submit_form <br>"; } else { echo "NO submit_form <br>"; }
 }
 
 $last_name_Error = "oplaod";
@@ -122,8 +122,9 @@ echo showErrorMessages();
 					</div>
 					<p>
 					<input type="reset" value="Reset"></input>
-					<input type="button" name="submit_button" id="submit_button" onClick="check();" value="Submit" style="display:none";></input>
+					<input type="button" name="submit_button" id="submit_button" onClick="check();" value="Submit" style="display:none"; form="mainform"></input>
 					<noscript><input type="submit" value="Submit" name="submit_button"></input></noscript>
+					<input type="hidden" name="submit_form" value="submit_form"></input> <!-- Flag indicates, that post request came from this form page-->
 					<br>
 				</form>
 			</fieldset>
