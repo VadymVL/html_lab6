@@ -25,7 +25,7 @@ function check() {
 		flag_error(mainform.email, "Input your e-mail!");
 		return;
 	} else if((email.indexOf("@") == -1) || (email.indexOf(".") == -1)) { //Do not contain @ nor .
-		flag_error(mainform.email, "Your e-mail must be valid adress!");
+		flag_error(mainform.email, "Your e-mail must be a valid adress!");
 		return;
 	} else if(email.indexOf(" ") > -1) {
 		flag_error(mainform.email, "Your e-mail must not contain space character ' '!");
