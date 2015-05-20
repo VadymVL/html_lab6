@@ -7,27 +7,89 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //ch
 	//checkForEmpty();
 	//validate();
 	echo "POST not null<br>";
-	
+	//name
 	if(empty($_POST["first_name"])) {
 		$first_name_Error = "Firsr name is required!";
-		echo "name is null<br>";
+		echo "First name is null<br>";
 	} else {
 		$first_name = checkInput($_POST["first_name"]);
-		//if(preg_match("\d", $first_name)) {
-		//	$first_name_Error = "First name must contain only letters!";
-		//}
-		echo "name is ".$first_name."<br>";
-		 if (!preg_match("/^[a-zA-Z ]*$/", $first_name)) {
-			$first_name_Error = "Only letters and white space allowed"; 
+		if (!preg_match("/^[a-zA-Z ]*$/", $first_name)) {
+			$first_name_Error = "Only letters and white space are allowed"; 
 		}
 	}
-} else {
+	
+	//last_name
+	if(empty($_POST["last_name"])) {
+		$last_name_Error = "Last name is required!";
+		echo "last name is null<br>";
+	} else {
+		$last_name = checkInput($_POST["last_name"]);
+		if (!preg_match("/^[a-zA-Z]*$/", $last_name)) {
+			$last_name_Error = "Only letters and white space allowed"; 
+		}
+	}
+	
+	//email
+	if(empty($_POST["email"])) {
+		$email_Error = "Last name is required!";
+		echo "last name is null<br>";
+	} else {
+		$email = checkInput($_POST["email"]);
+		$email = filter_var($email, FILTER_SANITIZE_EMAIL); //remove all illegal characters, that left
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			$email_Error = "Your email must be a valid address!"; 
+		}
+	}
+	
+	//password
+	if(empty($_POST["password"])) {
+		$password_Error = "Last name is required!";
+		echo "last name is null<br>";
+	} else {
+		$password = checkInput($_POST["password"]);
+		if (!preg_match("/^[a-zA-Z]*$/", $password)) {
+			$password_Error = "Only letters and white space allowed"; 
+		}
+	}
+	
+	//language
+	if(empty($_POST["language"])) {
+		$language_Error = "Last name is required!";
+		echo "last name is null<br>";
+	} else {
+		$language = checkInput($_POST["language"]);
+		if (!preg_match("/^[a-zA-Z]*$/", $language)) {
+			$language_Error = "Only letters and white space allowed"; 
+		}
+	}
+	
+	//checkbox
+	if(empty($_POST["checkbox"])) {
+		$checkbox_Error = "Last name is required!";
+		echo "last name is null<br>";
+	} else {
+		$checkbox = checkInput($_POST["checkbox"]);
+		if (!preg_match("/^[a-zA-Z]*$/", $checkbox)) {
+			$checkbox_Error = "Only letters and white space allowed"; 
+		}
+	}
+	
+	//gender
+	if(empty($_POST["gender"])) {
+		$gender_Error = "Last name is required!";
+		echo "last name is null<br>";
+	} else {
+		$gender = checkInput($_POST["gender"]);
+		if (!preg_match("/^[a-zA-Z]*$/", $gender)) {
+			$gender_Error = "Only letters and white space allowed"; 
+		}
+	}
+	
+} else { /*DELETE THIS NODE!*/
 	echo "POST is null<br>";
 	if($_SERVER["REQUEST_METHOD"] == "POST") { echo "POST <br>"; } else { echo "NO POST <br>"; }
 	if(isset($_POST["submit_form"]) ) { echo "submit_form <br>"; } else { echo "NO submit_form <br>"; }
 }
-
-$last_name_Error = "oplaod";
 
 function checkInput($input) {
   $input = trim($input); //remove spaces and new line symbols
@@ -57,11 +119,11 @@ function showErrorMessages() {
 	global $first_name_Error, $last_name_Error, $email_Error, $password_Error, $language_Error, $checkbox_Error, $gender_Error;
 	if(!empty($first_name_Error)) $result .= $first_name_Error;// . "<br>";
 	if(!empty($last_name_Error)) $result .= $last_name_Error;// . "<br>";
-	//if(!empty($email_Error)) $result .= $email_Error . "<br>";
-	//if(!empty($password_Error)) $result .= $password_Error . "<br>";
-	//if(!empty($language_Error)) $result .= $language_Error . "<br>";
-	//if(!empty($checkbox_Error)) $result .= $checkbox_Error . "<br>";
-	//if(!empty($gender_Error)) $result .= $gender_Error . "<br>";
+	if(!empty($email_Error)) $result .= $email_Error . "<br>";
+	if(!empty($password_Error)) $result .= $password_Error . "<br>";
+	if(!empty($language_Error)) $result .= $language_Error . "<br>";
+	if(!empty($checkbox_Error)) $result .= $checkbox_Error . "<br>";
+	if(!empty($gender_Error)) $result .= $gender_Error . "<br>";
 	return $result;
 }
 
@@ -95,13 +157,13 @@ echo showErrorMessages();
 					<input type="text" name="first_name" id="first_name" placeholder="John" value="<?php echo ($first_name);?>" <?php if(!empty($first_name_Error)) echo ('class="error"');?>></input>
 					<br>
 					<div align="left">Last name:<span><span class="required">*</span></div>
-					<input type="text" name="last_name" id="last_name" placeholder="Doe"></input>
+					<input type="text" name="last_name" id="last_name" placeholder="Doe" value="<?php echo ($last_name);?>" <?php if(!empty($last_name_Error)) echo ('class="error"');?>></input>
 					<br>
 					<div align="left">E-mail:<span><span class="required">*</span></div>
-					<input type="text" name="email" id="email" placeholder="john_doe@email.com"></input>
+					<input type="text" name="email" id="email" placeholder="john_doe@email.com" value="<?php echo ($email);?>" <?php if(!empty($email_Error)) echo ('class="error"');?>></input>
 					<br>
 					<div align="left">Password:<span><span class="required">*</span></div>
-					<input type="password" name="password" id="password"></input>
+					<input type="password" name="password" id="password" <?php if(!empty($password_Error)) echo ('class="error"');?>></input>
 					<br>
 					<div align="left">Gender:<span class="required">*</span></div>
 					<div id="gender_group_border">
