@@ -82,7 +82,7 @@ function check() {
 		flag_ok(checkbox_terms_border);
 	}
 	
-	if(error == false) {mainform.submit();alert("SUNMIKT!");}
+	if(error == false) {mainform.submit();alert("Success!");}
 	else alert("Your input contains errors!");
 }
 

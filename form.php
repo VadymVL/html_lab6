@@ -9,29 +9,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //ch
 	//name
 	if(empty($_POST["first_name"])) {
 		$first_name_Error = "Firsr name is required!";
-		echo "First name is null<br>";
 	} else {
 		$first_name = checkInput($_POST["first_name"]);
 		if (!preg_match("/^[a-zA-Z ]*$/", $first_name)) {
-			$first_name_Error = "Only letters and white space are allowed"; 
+			$first_name_Error = "Only letters and white space are allowed in the First name field!"; 
 		}
 	}
 	
 	//last_name
 	if(empty($_POST["last_name"])) {
 		$last_name_Error = "Last name is required!";
-		echo "last name is null<br>";
 	} else {
 		$last_name = checkInput($_POST["last_name"]);
 		if (!preg_match("/^[a-zA-Z]*$/", $last_name)) {
-			$last_name_Error = "Only letters and white space are allowed"; 
+			$last_name_Error = "Only letters and white space are allowed in the Last name field!"; 
 		}
 	}
 	
 	//email
 	if(empty($_POST["email"])) {
 		$email_Error = "Email is required!";
-		echo "Email is null<br>";
 	} else {
 		$email = checkInput($_POST["email"]);
 		$email = filter_var($email, FILTER_SANITIZE_EMAIL); //remove all illegal characters, that left
@@ -43,7 +40,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //ch
 	//password
 	if(empty($_POST["password"])) {
 		$password_Error = "Password is required!";
-		echo "Password is null<br>";
 	} else {
 		$password = checkInput($_POST["password"]);
 		if (strlen($password) < 6) {
@@ -54,7 +50,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //ch
 	//gender
 	if(empty($_POST["gender"])) {
 		$gender_Error = "Gender is required!";
-		echo "gender is null<br>";
 	} else {
 		$gender = checkInput($_POST["gender"]);
 		if($gender !== "F" && $gender !== "M") {
@@ -65,7 +60,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //ch
 	//language
 	if(empty($_POST["lang"])) {
 		$language_Error = "Language is required!";
-		echo "language is null<br>";
 	} else {
 		$language = checkInput($_POST["lang"]);
 		if($language !== "eng" && $language !== "ger" && $language !== "ukr" && $language !== "spa") {
@@ -75,13 +69,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //ch
 	
 	//checkbox
 	if(empty($_POST["checkbox"])) {
-		$checkbox_Error = "checkbox is required!";
-		echo "checkbox is null<br>";
+		$checkbox_Error = "Terms checkbox is required!";
 	} else {
 		$checkbox = checkInput($_POST["checkbox"]);
 	}
 	
-} else { /*DELETE THIS NODE!*/
+} else { 
 	$form_is_empty = true;
 }
 
@@ -157,21 +150,21 @@ function showErrorMessages() {
 					<input type="password" name="password" id="password" <?php if(!empty($password_Error)) echo ('class="error"');?>></input>
 					<br>
 					<div align="left">Gender:<span class="required">*</span></div>
-					<div id="gender_group_border">
-					<input type="radio" name="gender" id="gender_male" value="M"><label for="gender_male">Male</label></input>
-					<input type="radio" name="gender" id="gender_female"value="F"><label for="gender_female">Female</label></input>
+					<div id="gender_group_border" <?php if(!empty($gender_Error)) echo ('class="error"');?>>
+					<input type="radio" name="gender" id="gender_male" value="M" <?php if(empty($gender_Error) && $gender === "M") echo ('checked');?>><label for="gender_male">Male</label></input>
+					<input type="radio" name="gender" id="gender_female"value="F" <?php if(empty($gender_Error) && $gender === "F") echo ('checked');?>><label for="gender_female">Female</label></input>
 					</div>
 					<div align="left">Language:<span><span class="required">*</span></div>
-					<select name="lang">
-						<option value="null" disabled selected>Select...</option>
-						<option value="eng">English</option>
-						<option value="ger">German</option>
-						<option value="ukr">Ukrainian</option>
-						<option value="spa">Spanish</option>
+					<select name="lang" <?php if(!empty($language_Error)) echo ('class="error"');?>>
+						<option value="null" disabled <?php if(!empty($language_Error)) echo ('selected');?>>Select...</option>
+						<option value="eng" <?php if(empty($language_Error) && $language === "eng") echo ('selected');?>>English</option>
+						<option value="ger" <?php if(empty($language_Error) && $language === "ger") echo ('selected');?>>German</option>
+						<option value="ukr" <?php if(empty($language_Error) && $language === "ukr") echo ('selected');?>>Ukrainian</option>
+						<option value="spa" <?php if(empty($language_Error) && $language === "spa") echo ('selected');?>>Spanish</option>
 					</select>
 					<p>
-					<div id="checkbox_terms_border">
-					<input type="checkbox" name="checkbox" id="checkbox"><label for="checkbox">I'm agree with terms.</label></input><span class="required">*</span>
+					<div id="checkbox_terms_border" <?php if(!empty($checkbox_Error)) echo ('class="error"');?>>
+					<input type="checkbox" name="checkbox" id="checkbox" <?php if(empty($checkbox_Error) && !empty($checkbox)) echo ('checked');?>><label for="checkbox">I'm agree with terms.</label></input><span class="required">*</span>
 					</div>
 					<p>
 					<input type="reset" value="Reset"></input>
