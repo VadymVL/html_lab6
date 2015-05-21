@@ -4,8 +4,7 @@ echo '<pre>'; var_dump($_POST); echo '</pre>';
 $first_name = $last_name = $email = $password = $language = $checkbox = $gender = "";
 $first_name_Error = $last_name_Error = $email_Error = $password_Error = $language_Error = $checkbox_Error = $gender_Error = ""; //error flags
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //check request method, and if submit_form variable is able in the responce array
-	//checkForEmpty();
-	//validate();
+
 	echo "POST not null<br>";
 	//name
 	if(empty($_POST["first_name"])) {
@@ -25,14 +24,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //ch
 	} else {
 		$last_name = checkInput($_POST["last_name"]);
 		if (!preg_match("/^[a-zA-Z]*$/", $last_name)) {
-			$last_name_Error = "Only letters and white space allowed"; 
+			$last_name_Error = "Only letters and white space are allowed"; 
 		}
 	}
 	
 	//email
 	if(empty($_POST["email"])) {
-		$email_Error = "Last name is required!";
-		echo "last name is null<br>";
+		$email_Error = "Email is required!";
+		echo "Email is null<br>";
 	} else {
 		$email = checkInput($_POST["email"]);
 		$email = filter_var($email, FILTER_SANITIZE_EMAIL); //remove all illegal characters, that left
@@ -43,46 +42,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //ch
 	
 	//password
 	if(empty($_POST["password"])) {
-		$password_Error = "Last name is required!";
-		echo "last name is null<br>";
+		$password_Error = "Password is required!";
+		echo "Password is null<br>";
 	} else {
 		$password = checkInput($_POST["password"]);
-		if (!preg_match("/^[a-zA-Z]*$/", $password)) {
-			$password_Error = "Only letters and white space allowed"; 
-		}
-	}
-	
-	//language
-	if(empty($_POST["language"])) {
-		$language_Error = "Last name is required!";
-		echo "last name is null<br>";
-	} else {
-		$language = checkInput($_POST["language"]);
-		if (!preg_match("/^[a-zA-Z]*$/", $language)) {
-			$language_Error = "Only letters and white space allowed"; 
-		}
-	}
-	
-	//checkbox
-	if(empty($_POST["checkbox"])) {
-		$checkbox_Error = "Last name is required!";
-		echo "last name is null<br>";
-	} else {
-		$checkbox = checkInput($_POST["checkbox"]);
-		if (!preg_match("/^[a-zA-Z]*$/", $checkbox)) {
-			$checkbox_Error = "Only letters and white space allowed"; 
+		if (strlen($password) < 6) {
+			$password_Error = "Password must be more then 6 characters!"; 
 		}
 	}
 	
 	//gender
 	if(empty($_POST["gender"])) {
-		$gender_Error = "Last name is required!";
-		echo "last name is null<br>";
+		$gender_Error = "Gender is required!";
+		echo "gender is null<br>";
 	} else {
 		$gender = checkInput($_POST["gender"]);
-		if (!preg_match("/^[a-zA-Z]*$/", $gender)) {
-			$gender_Error = "Only letters and white space allowed"; 
+		if($gender !== "F" && $gender !== "M") {
+			$gender_Error = "Gender must be Male or Female!"; 
 		}
+	}
+	
+	//language
+	if(empty($_POST["lang"])) {
+		$language_Error = "Language is required!";
+		echo "language is null<br>";
+	} else {
+		$language = checkInput($_POST["lang"]);
+		if($language !== "eng" && $language !== "ger" && $language !== "ukr" && $language !== "spa") {
+			$language_Error = "Language must be have chosen from the list!"; 
+		}
+	}
+	
+	//checkbox
+	if(empty($_POST["checkbox"])) {
+		$checkbox_Error = "checkbox is required!";
+		echo "checkbox is null<br>";
+	} else {
+		$checkbox = checkInput($_POST["checkbox"]);
 	}
 	
 } else { /*DELETE THIS NODE!*/
@@ -98,36 +94,22 @@ function checkInput($input) {
   return $input; //return checked string
 }
 
-/*echo ((isset($_POST["first_name"]))?$_POST["first_name"]:"");
-echo("<br>");
-echo ((isset($_POST["last_name"]))?$_POST["last_name"]:"");
-echo("<br>");
-echo ((isset($_POST["email"]))?$_POST["email"]:"");
-echo("<br>");
-echo ((isset($_POST["password"]))?$_POST["password"]:"");
-echo("<br>");
-echo ((isset($_POST["gender"]))?$_POST["gender"]:"");
-echo("<br>");
-echo ((isset($_POST["lang"]))?$_POST["lang"]:"");
-echo("<br>");
-echo ((isset($_POST["checkbox"]))?$_POST["checkbox"]:"");
-echo("<br>");*/
-
-
 function showErrorMessages() {
-	$result = "1";
+	$result = "";
 	global $first_name_Error, $last_name_Error, $email_Error, $password_Error, $language_Error, $checkbox_Error, $gender_Error;
-	if(!empty($first_name_Error)) $result .= $first_name_Error;// . "<br>";
-	if(!empty($last_name_Error)) $result .= $last_name_Error;// . "<br>";
+	if(!empty($first_name_Error)) $result .= $first_name_Error . "<br>";
+	if(!empty($last_name_Error)) $result .= $last_name_Error . "<br>";
 	if(!empty($email_Error)) $result .= $email_Error . "<br>";
 	if(!empty($password_Error)) $result .= $password_Error . "<br>";
+	if(!empty($gender_Error)) $result .= $gender_Error . "<br>";
 	if(!empty($language_Error)) $result .= $language_Error . "<br>";
 	if(!empty($checkbox_Error)) $result .= $checkbox_Error . "<br>";
-	if(!empty($gender_Error)) $result .= $gender_Error . "<br>";
+	if(strlen($result) == 0) {
+		header('Location: user.php');
+        exit;
+	}
 	return $result;
 }
-
-echo showErrorMessages();
 ?>
 
 <!DOCTYPE html>
