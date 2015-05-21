@@ -1,11 +1,11 @@
 <?php
 echo '<pre>'; var_dump($_POST); echo '</pre>';
-
+$form_is_empty = true;
 $first_name = $last_name = $email = $password = $language = $checkbox = $gender = "";
 $first_name_Error = $last_name_Error = $email_Error = $password_Error = $language_Error = $checkbox_Error = $gender_Error = ""; //error flags
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //check request method, and if submit_form variable is able in the responce array
 
-	echo "POST not null<br>";
+	$form_is_empty = false;
 	//name
 	if(empty($_POST["first_name"])) {
 		$first_name_Error = "Firsr name is required!";
@@ -82,9 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_form"]) ) { //ch
 	}
 	
 } else { /*DELETE THIS NODE!*/
-	echo "POST is null<br>";
-	if($_SERVER["REQUEST_METHOD"] == "POST") { echo "POST <br>"; } else { echo "NO POST <br>"; }
-	if(isset($_POST["submit_form"]) ) { echo "submit_form <br>"; } else { echo "NO submit_form <br>"; }
+	$form_is_empty = true;
 }
 
 function checkInput($input) {
@@ -97,6 +95,9 @@ function checkInput($input) {
 function showErrorMessages() {
 	$result = "";
 	global $first_name_Error, $last_name_Error, $email_Error, $password_Error, $language_Error, $checkbox_Error, $gender_Error;
+	global $form_is_empty;
+    global $first_name, $last_name, $email, $password, $language, $checkbox, $gender;
+	
 	if(!empty($first_name_Error)) $result .= $first_name_Error . "<br>";
 	if(!empty($last_name_Error)) $result .= $last_name_Error . "<br>";
 	if(!empty($email_Error)) $result .= $email_Error . "<br>";
@@ -104,11 +105,19 @@ function showErrorMessages() {
 	if(!empty($gender_Error)) $result .= $gender_Error . "<br>";
 	if(!empty($language_Error)) $result .= $language_Error . "<br>";
 	if(!empty($checkbox_Error)) $result .= $checkbox_Error . "<br>";
-	if(strlen($result) == 0) {
+	
+	if(strlen($result) == 0 && $form_is_empty !== true) {
+		session_start();
+		$_SESSION["first_name"] = $first_name;
+		$_SESSION["last_name"] = $last_name;
+		$_SESSION["email"] = $email;
+		$_SESSION["gender"] = $gender;
+		$_SESSION["lang"] = $language;
 		header('Location: user.php');
         exit;
+	} else {
+		return $result;
 	}
-	return $result;
 }
 ?>
 
@@ -177,9 +186,3 @@ function showErrorMessages() {
 	</center>
 </body>
 </html>
-
-
-<?php
-
-
-?>
