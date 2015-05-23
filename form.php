@@ -156,7 +156,7 @@ function showErrorMessages() {
 					</div>
 					<div align="left">Language:<span><span class="required">*</span></div>
 					<select name="lang" <?php if(!empty($language_Error)) echo ('class="error"');?>>
-						<option value="null" disabled <?php if(!empty($language_Error)) echo ('selected');?>>Select...</option>
+						<option value="null" disabled <?php if(!empty($language_Error) || $form_is_empty) echo ('selected');?>>Select...</option>
 						<option value="eng" <?php if(empty($language_Error) && $language === "eng") echo ('selected');?>>English</option>
 						<option value="ger" <?php if(empty($language_Error) && $language === "ger") echo ('selected');?>>German</option>
 						<option value="ukr" <?php if(empty($language_Error) && $language === "ukr") echo ('selected');?>>Ukrainian</option>
