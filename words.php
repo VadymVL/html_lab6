@@ -2,26 +2,24 @@
 header("Content-type: text/html; charset=windows-1251");  //Using correct encoding fro Ukrainian anrussian characters
 echo '<pre>original POST:<br>'; var_dump($_POST); echo '</pre>';
 
-if(isset($_POST["text"])) { //exit();
+if(isset($_POST["text"])) { 
 
 $text = $_POST["text"];
 $result = "";
 
 $textArray = explode(" ", $text);
-echo '<pre>textArray frompost string:<br>'; var_dump($textArray); echo '</pre>';
+echo '<pre>textArray from POST string:<br>'; var_dump($textArray); echo '</pre>';
 
 foreach($textArray as $word) {
-	echo "word - ".$word."<br>";
-	$charArray = mb_str_split($word);
+
+	$charArray = str_split($word);
 	$arrayLength = strlen($word);
 	
-	echo '<pre>word char Array:<br>'; var_dump($charArray); echo '</pre>'.$arrayLength;
-	
+	echo '<pre>word char Array:<br>'; var_dump($charArray); echo '</pre>'."length:".$arrayLength."<br>";
 	
 	for($i = 0; $i < $arrayLength/2; $i++) {
 		$temp = $charArray[$i];
-		//if(!preg_match("/^[a-zA-Z0-9]+$/", $temp)) break;//continue; //ctype_alnum as alternative - check for alphanumeric charaters
-		$charArray[$i] = $charArray[$arrayLength - 1 - $i]; //-1 for index match
+		$charArray[$i] =  $charArray[$arrayLength - 1 - $i]; //-1 for index match
 		$charArray[$arrayLength - 1 - $i] = $temp;
 	}
 	
@@ -31,16 +29,6 @@ foreach($textArray as $word) {
 }
 
 echo "result:<br>".$result."<br>";
-}
-
-function mb_str_split( $string ) { //multibite for ukrainian and cyrillic encoding characters
-    # Split at all position not after the start: ^ and not before the end: $ 
-    //return preg_split('/(?<!^)(?!$)/u', $string );
-	//return preg_split("//u", $string, -1, PREG_SPLIT_NO_EMPTY);	
-	$results = array();
-	preg_match_all('/./u', $string, $results);
-	var_dump($results[0]);
-	return $results;
 }
 ?>
 
