@@ -14,56 +14,32 @@
 		<div class="child">
 			<fieldset>
 				<legend><h3>AVI</h3></legend>
-				<object data="files/article.avi" width="360" height="250"> <param name="src" value="files/article.avi" /> <param name="autoplay" value="false" /><embed type="video/mp4" src="files/article.avi" width="360" height="250"></embed> </object>
+				<object data="files/article.avi" width="640" height="480"> 
+					<param name="src" value="files/article.avi" /> 
+					<param name="autoplay" value="false" />
+					<embed type="video/x-ms-wm" src="files/article.avi" 
+						width="640" height="480">
+					</embed>
+				</object>
 			</fieldset>
 			<p>
 			<fieldset>
 				<legend><h3>MP3</h3></legend>
-				<object data="files/song.mp3" width="360" height="250"> <param name="src" value="files/song.mp3" /> <param name="autoplay" value="false" /><embed type="audio/mp3" src="files/song.mp3" width="360" height="250"></embed> </object>
-				<br>
-				<audio controls>
-				<source src="files/song.mp3" type='audio/mp3'>
-					<!-- The next line will only be executed if the browser doesn't support the <audio> tag-->
-					<p>Your user agent does not support the HTML5 Audio element.</p>
+				<audio controls preload="auto">
+					<source src="files/song.mp3" type="audio/mpeg"/>
+					<source src="files/song.ogg" type="audio/ogg"/>
 				</audio>
-				<p>
-				
-				<audio controls>
-  <source src="files/song.mp3" type="audio/ogg">
-  <source src="files/song.ogg" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
-
-<p>
-
-<audio controls id="aud">
-    <source src="files/song.ogg" type="audio/ogg" />
-    <source src="files/song.mp3" type="audio/mpeg" />
-</audio>
-
-
-<p>
-
-<audio controls preload="auto"> 
-  <source src="files/song.mp3" />
-  <source src="files/song.ogg" />
-  <!-- now include flash fall back -->
-</audio>
-<a href="#" onClick="document.getElementById('aud').play(); return false;">
-  Link
-</a>
 			</fieldset>
 			<p>
 			<fieldset>
 				<legend><h3>QuickTime Movie</h3></legend>
-				
 				<object classid="clsid:02BF25D-8C17-4B23-BC80-D3488ABDDC6B" 
 					width="640" heiglit="480" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
-						<param name="src" value="files/gubka.mov" />
+						<param name="src" value="files/times.mov" />
 						<param name="autoplay" value="false" />
 						<param name="controller" value="true" />
 						<param name="scale" value="tofit">
-						<embed src="files/gubka.mov" 
+						<embed src="files/times.mov" 
 							width="640" height="480" 
 							autoplay="false" 
 							controller="true" 
@@ -71,7 +47,6 @@ Your browser does not support the audio element.
 							piuginspage="http://www.apple.com/quicktime/download/">
 						</embed>
 				</object>
-
 			</fieldset>
 			<p>
 			<fieldset>
@@ -79,22 +54,30 @@ Your browser does not support the audio element.
 				<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" 
 					width="640" height="480" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
 						<param name="src" value="files/park.mov">
-						<param name="autoplay" value="true">
+						<param name="autoplay" value="false">
 						<param name="controller" value="true">
 						<param name="scale" value="tofit">
-					<embed src="park.mov" 
-						width="100%" height="100%" 
-						cache="true" 
+					<embed src="files/park.mov" 
+						width="640" height="480" 
+						autoplay="false" 
 						controller="true" 
 						scale="tofit"
-						pluginspage="http://www.apple.com/quicktime/download" style="display:none;">
+						pluginspage="http://www.apple.com/quicktime/download">
 					</embed>
 				</object>
 			</fieldset>
 			<p>
 			<fieldset>
 				<legend><h3>Flash</h3></legend>
-				<object data="files/racing.swf" width="360" height="250"> <param name="src" value="files/racing.swf" /> <embed type="video/vnd.sealed-swf" src="files/racing.swf" width="360" height="250"></embed> </object>
+				<object classid="clsid:D27CDB6E-AE6D-11Cf-96B8-444553540000"
+					data="files/horse.swf" width="640" height="480" 
+					type="application/x-shockwave-flash">
+					<param name="movie" value="files/horse.swf" /> 
+					<embed type="application/x-shockwave-flash" 
+						src="files/horse.swf" 
+						width="640" height="480">
+					</embed>
+				</object>
 			</fieldset>	
 		</div>
 	</div>
